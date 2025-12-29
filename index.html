@@ -3,57 +3,77 @@
 <head>
 <meta charset="UTF-8">
 <title>The Gentle Standard</title>
+
 <style>
+  /* ------------------------------
+     GLOBAL STYLES
+  ------------------------------ */
+
   body {
     margin: 0;
-    font-family: sans-serif;
-    background-color: #F9F7F3;
+    font-family: "Inter", sans-serif;
+    color: #333;
+    line-height: 1.6;
+
+    /* Soft animated gradient background */
+    background: linear-gradient(140deg, #F9F7F3, #CCD6E5, #A888A2);
+    background-size: 300% 300%;
+    animation: gradientShift 22s ease infinite;
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ------------------------------
+     HEADER
+  ------------------------------ */
+
+  header {
+    padding: 60px 8%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  .site-logo {
+    width: 90px;
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    font-family: "Playfair Display", serif;
+    font-size: 2.8rem;
+    margin: 0;
     color: #333;
   }
-<div class="background-wave"></div>
-  header {
-    text-align: center;
-    padding: 40px 20px;
+
+  .tagline {
+    font-size: 1.2rem;
+    color: #A888A2;
+    margin-top: 10px;
   }
 
- <header>
-  <img src="logo.jpeg" alt="The Gentle Standard Logo" class="site-logo">
+  /* ------------------------------
+     SEARCH + FILTERS
+  ------------------------------ */
 
-  <h1>The Gentle Standard</h1>
-  <p class="tagline">Softness as a way of being</p>
-</header>
   .search-section {
-    text-align: center;
-    padding: 20px;
+    padding: 20px 8%;
+    max-width: 900px;
+    margin: 0 auto;
   }
-header {
-  text-align: center;
-  padding: 40px 20px;
-}
 
-.site-logo {
-  max-width: 150px;
-  margin-bottom: 20px;
-}
-
-header h1 {
-  font-family: serif;
-  font-size: 2rem;
-  margin: 0;
-  color: #333;
-}
-
-.tagline {
-  margin-top: 8px;
-  font-size: 1.2rem;
-  color: #A888A2;
-}
   .search-section input[type="text"] {
-    width: 60%;
-    padding: 12px;
+    width: 100%;
+    padding: 14px;
+    border-radius: 10px;
     border: 1px solid #CCD6E5;
-    border-radius: 8px;
     font-size: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
   }
 
   .filters {
@@ -62,89 +82,103 @@ header h1 {
 
   .filters select {
     padding: 10px;
-    margin: 0 5px;
-    border-radius: 8px;
+    margin-right: 10px;
+    border-radius: 10px;
     border: 1px solid #CCD6E5;
-    background-color: #F9F7F3;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(4px);
   }
 
+  /* ------------------------------
+     PRODUCT GRID
+  ------------------------------ */
+
   .featured-products {
-  padding: 40px 20px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
-  animation: fadeIn 1s ease-in;
-}
+    padding: 40px 8%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(260px, 1fr));
+    gap: 40px;
+  }
 
-.product-card {
-  background-color: #F9F7F3;
-  border: 1px solid #A888A2;
-  border-radius: 12px;
-  padding: 20px;
-  text-align: center;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+  .product-card {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(168, 136, 162, 0.25);
+    text-align: center;
 
-.product-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(170, 136, 162, 0.2);
-}
+    /* Gentle motion */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    animation: fadeUp 0.8s ease both;
+  }
 
-.product-card img {
-  width: 100%;
-  border-radius: 8px;
-}
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 24px rgba(168, 136, 162, 0.18);
+  }
 
-.product-title {
-  margin-top: 10px;
-  font-size: 1.1rem;
-  color: #333;
-}
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
 
-.tags {
-  margin: 8px 0;
-}
+  .product-card img {
+    width: 100%;
+    border-radius: 12px;
+  }
 
-.tag {
-  display: inline-block;
-  background-color: #D884A0;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 12px;
-  font-size: 0.8rem;
-  margin: 2px;
-}
+  .product-title {
+    margin-top: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
 
-.tag:nth-child(even) {
-  background-color: #4AA44A;
-}
+  .tags {
+    margin: 10px 0;
+  }
 
-.rating {
-  margin-top: 10px;
-  color: #4AA44A;
-  font-size: 1.2rem;
-}
+  .tag {
+    display: inline-block;
+    background-color: #D884A0;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    margin: 3px;
+  }
 
-/* Soft fade-in animation */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+  .tag:nth-child(even) {
+    background-color: #4AA44A;
+  }
+
+  .rating {
+    margin-top: 10px;
+    color: #4AA44A;
+    font-size: 1.2rem;
+  }
+
 </style>
 </head>
 
 <body>
 
+<!-- ------------------------------
+     HEADER
+------------------------------ -->
 <header>
-  <img src="logo.jpeg" alt="The Gentle Standard Logo" style="max-width:140px; margin-bottom:20px;">
-  <h1 style="font-family: serif; font-size: 2rem; margin: 0; color: #333;">The Gentle Standard</h1>
-  <div class="tagline" style="font-size: 1.2rem; color: #A888A2; margin-top: 8px;">
-    Softness as a way of being
-  </div>
+  <img src="logo.jpeg" alt="The Gentle Standard Logo" class="site-logo">
+
+  <h1>The Gentle Standard</h1>
+  <p class="tagline">Softness as a way of being</p>
 </header>
 
+<!-- ------------------------------
+     SEARCH + FILTERS
+------------------------------ -->
 <section class="search-section">
   <input type="text" placeholder="Search products...">
+
   <div class="filters">
     <select><option>Category</option></select>
     <select><option>Material</option></select>
@@ -152,7 +186,11 @@ header h1 {
   </div>
 </section>
 
+<!-- ------------------------------
+     PRODUCT GRID
+------------------------------ -->
 <section class="featured-products">
+
   <div class="product-card">
     <img src="product1.jpg" alt="Product">
     <div class="product-title">Soft Knit Sweater</div>
@@ -163,27 +201,27 @@ header h1 {
     <div class="rating">★★★★☆</div>
   </div>
 
-  <!-- Repeat product-card blocks as needed -->
-<div class="product-card">
-  <img src="product1.jpg" alt="Product">
-  <div class="product-title">Soft Knit Sweater</div>
-  <div class="tags">
-    <span class="tag">soft</span>
-    <span class="tag">woman</span>
+  <div class="product-card">
+    <img src="product2.jpg" alt="Product">
+    <div class="product-title">Gentle Linen Wrap</div>
+    <div class="tags">
+      <span class="tag">lightweight</span>
+      <span class="tag">neutral</span>
+    </div>
+    <div class="rating">★★★★★</div>
   </div>
-  <div class="rating">★★★★☆</div>
-</div>
+
+  <div class="product-card">
+    <img src="product3.jpg" alt="Product">
+    <div class="product-title">Adaptive Soft Tee</div>
+    <div class="tags">
+      <span class="tag">adaptive</span>
+      <span class="tag">soft</span>
+    </div>
+    <div class="rating">★★★★☆</div>
+  </div>
+
 </section>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
