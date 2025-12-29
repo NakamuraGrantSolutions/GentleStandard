@@ -5,180 +5,277 @@
 <title>The Gentle Standard</title>
 
 <style>
-  /* ------------------------------
-     GLOBAL STYLES
-  ------------------------------ */
+/* ----------------------------------------
+   GLOBAL STYLES + BACKGROUND
+----------------------------------------- */
 
-  body {
-    margin: 0;
-    font-family: "Inter", sans-serif;
-    color: #333;
-    line-height: 1.6;
+body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  color: #333;
+  line-height: 1.6;
 
-    /* Soft animated gradient background */
-    background: linear-gradient(140deg, #F9F7F3, #CCD6E5, #A888A2);
-    background-size: 300% 300%;
-    animation: gradientShift 22s ease infinite;
-  }
+  /* Soft animated gradient background */
+  background: linear-gradient(140deg, #F9F7F3, #CCD6E5, #A888A2);
+  background-size: 300% 300%;
+  animation: gradientShift 22s ease infinite;
+}
 
-  @keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  /* ------------------------------
-     HEADER
-  ------------------------------ */
+/* ----------------------------------------
+   FLOATING LEAF MOTIFS
+----------------------------------------- */
 
-  header {
-    padding: 60px 8%;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: left;
-  }
+.leaf {
+  position: fixed;
+  width: 40px;
+  opacity: 0.08;
+  animation: floatLeaf 18s linear infinite;
+  pointer-events: none;
+}
 
-  .site-logo {
-    width: 90px;
-    margin-bottom: 20px;
-  }
+@keyframes floatLeaf {
+  0% { transform: translateY(0) rotate(0deg); }
+  100% { transform: translateY(-800px) rotate(360deg); }
+}
 
-  header h1 {
-    font-family: "Playfair Display", serif;
-    font-size: 2.8rem;
-    margin: 0;
-    color: #333;
-  }
+/* ----------------------------------------
+   NAVIGATION BAR
+----------------------------------------- */
 
-  .tagline {
-    font-size: 1.2rem;
-    color: #A888A2;
-    margin-top: 10px;
-  }
+nav {
+  width: 100%;
+  padding: 20px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(168, 136, 162, 0.2);
+  z-index: 10;
+}
 
-  /* ------------------------------
-     SEARCH + FILTERS
-  ------------------------------ */
+nav .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
 
-  .search-section {
-    padding: 20px 8%;
-    max-width: 900px;
-    margin: 0 auto;
-  }
+nav .nav-logo img {
+  width: 40px;
+}
 
-  .search-section input[type="text"] {
-    width: 100%;
-    padding: 14px;
-    border-radius: 10px;
-    border: 1px solid #CCD6E5;
-    font-size: 1rem;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(4px);
-  }
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+}
 
-  .filters {
-    margin-top: 15px;
-  }
+nav ul li {
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
 
-  .filters select {
-    padding: 10px;
-    margin-right: 10px;
-    border-radius: 10px;
-    border: 1px solid #CCD6E5;
-    background: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(4px);
-  }
+nav ul li:hover {
+  color: #4AA44A;
+}
 
-  /* ------------------------------
-     PRODUCT GRID
-  ------------------------------ */
+/* ----------------------------------------
+   HEADER
+----------------------------------------- */
 
-  .featured-products {
-    padding: 40px 8%;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(260px, 1fr));
-    gap: 40px;
-  }
+header {
+  padding: 60px 8%;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: left;
+}
 
-  .product-card {
-    background: rgba(255, 255, 255, 0.55);
-    backdrop-filter: blur(8px);
-    border-radius: 16px;
-    padding: 20px;
-    border: 1px solid rgba(168, 136, 162, 0.25);
-    text-align: center;
+.site-logo {
+  width: 90px;
+  margin-bottom: 20px;
+}
 
-    /* Gentle motion */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    animation: fadeUp 0.8s ease both;
-  }
+header h1 {
+  font-family: "Playfair Display", serif;
+  font-size: 2.8rem;
+  margin: 0;
+  color: #333;
+}
 
-  .product-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 12px 24px rgba(168, 136, 162, 0.18);
-  }
+.tagline {
+  font-size: 1.2rem;
+  color: #A888A2;
+  margin-top: 10px;
+}
 
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+/* ----------------------------------------
+   SEARCH + FILTERS
+----------------------------------------- */
 
-  .product-card img {
-    width: 100%;
-    border-radius: 12px;
-  }
+.search-section {
+  padding: 20px 8%;
+  max-width: 900px;
+  margin: 0 auto;
+}
 
-  .product-title {
-    margin-top: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-  }
+.search-section input[type="text"] {
+  width: 100%;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #CCD6E5;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+}
 
-  .tags {
-    margin: 10px 0;
-  }
+.filters {
+  margin-top: 15px;
+}
 
-  .tag {
-    display: inline-block;
-    background-color: #D884A0;
-    color: white;
-    padding: 5px 12px;
-    border-radius: 12px;
-    font-size: 0.8rem;
-    margin: 3px;
-  }
+.filters select {
+  padding: 10px;
+  margin-right: 10px;
+  border-radius: 10px;
+  border: 1px solid #CCD6E5;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(4px);
+}
 
-  .tag:nth-child(even) {
-    background-color: #4AA44A;
-  }
+/* ----------------------------------------
+   PRODUCT GRID + SCROLL ANIMATIONS
+----------------------------------------- */
 
-  .rating {
-    margin-top: 10px;
-    color: #4AA44A;
-    font-size: 1.2rem;
-  }
+.featured-products {
+  padding: 40px 8%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(260px, 1fr));
+  gap: 40px;
+}
+
+.product-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(168, 136, 162, 0.25);
+  text-align: center;
+
+  /* Scroll-triggered animation */
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.product-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.product-card img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.product-title {
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.tags {
+  margin: 10px 0;
+}
+
+.tag {
+  display: inline-block;
+  background-color: #D884A0;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  margin: 3px;
+}
+
+.tag:nth-child(even) {
+  background-color: #4AA44A;
+}
+
+.rating {
+  margin-top: 10px;
+  color: #4AA44A;
+  font-size: 1.2rem;
+}
+
+/* ----------------------------------------
+   FOOTER
+----------------------------------------- */
+
+footer {
+  margin-top: 80px;
+  padding: 40px 8%;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(168, 136, 162, 0.2);
+  text-align: center;
+}
+
+footer h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+}
+
+footer p {
+  max-width: 700px;
+  margin: 0 auto;
+  color: #555;
+}
 
 </style>
 </head>
 
 <body>
 
-<!-- ------------------------------
-     HEADER
------------------------------- -->
+<!-- FLOATING LEAVES -->
+<img src="leaf.png" class="leaf" style="left: 10%; animation-delay: 0s;">
+<img src="leaf.png" class="leaf" style="left: 40%; animation-delay: 4s;">
+<img src="leaf.png" class="leaf" style="left: 70%; animation-delay: 8s;">
+
+<!-- NAVIGATION BAR -->
+<nav>
+  <div class="nav-logo">
+    <img src="logo.jpeg" alt="Logo">
+    <strong>The Gentle Standard</strong>
+  </div>
+
+  <ul>
+    <li>Home</li>
+    <li>Shop</li>
+    <li>About</li>
+    <li>Contact</li>
+  </ul>
+</nav>
+
+<!-- HEADER -->
 <header>
   <img src="logo.jpeg" alt="The Gentle Standard Logo" class="site-logo">
-
   <h1>The Gentle Standard</h1>
   <p class="tagline">Softness as a way of being</p>
 </header>
 
-<!-- ------------------------------
-     SEARCH + FILTERS
------------------------------- -->
+<!-- SEARCH -->
 <section class="search-section">
   <input type="text" placeholder="Search products...">
-
   <div class="filters">
     <select><option>Category</option></select>
     <select><option>Material</option></select>
@@ -186,9 +283,7 @@
   </div>
 </section>
 
-<!-- ------------------------------
-     PRODUCT GRID
------------------------------- -->
+<!-- PRODUCT GRID -->
 <section class="featured-products">
 
   <div class="product-card">
@@ -222,6 +317,36 @@
   </div>
 
 </section>
+
+<!-- FOOTER -->
+<footer>
+  <h3>Our Values</h3>
+  <p>
+    At The Gentle Standard, we believe in softness as a form of dignity.  
+    We design with accessibility, comfort, and emotional ease at the center —  
+    creating clothing that honors the body, the senses, and the lived experience  
+    of every person who wears it.
+  </p>
+</footer>
+
+<!-- SCROLL ANIMATION SCRIPT -->
+<script>
+  const cards = document.querySelectorAll('.product-card');
+
+  function revealOnScroll() {
+    const trigger = window.innerHeight * 0.85;
+
+    cards.forEach(card => {
+      const top = card.getBoundingClientRect().top;
+      if (top < trigger) {
+        card.classList.add('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', revealOnScroll);
+  revealOnScroll();
+</script>
 
 </body>
 </html>
