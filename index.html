@@ -14,8 +14,6 @@ body {
   font-family: "Inter", sans-serif;
   color: #333;
   line-height: 1.6;
-
-  /* Soft animated gradient background */
   background: linear-gradient(140deg, #F9F7F3, #CCD6E5, #A888A2);
   background-size: 300% 300%;
   animation: gradientShift 22s ease infinite;
@@ -152,7 +150,7 @@ header h1 {
 }
 
 /* ----------------------------------------
-   PRODUCT GRID + SCROLL ANIMATIONS
+   PRODUCT GRID (AFFILIATE VERSION)
 ----------------------------------------- */
 
 .featured-products {
@@ -163,6 +161,10 @@ header h1 {
 }
 
 .product-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
   background: rgba(255, 255, 255, 0.55);
   backdrop-filter: blur(8px);
   border-radius: 16px;
@@ -170,7 +172,6 @@ header h1 {
   border: 1px solid rgba(168, 136, 162, 0.25);
   text-align: center;
 
-  /* Scroll-triggered animation */
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease;
@@ -179,6 +180,11 @@ header h1 {
 .product-card.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(168, 136, 162, 0.18);
 }
 
 .product-card img {
@@ -283,38 +289,38 @@ footer p {
   </div>
 </section>
 
-<!-- PRODUCT GRID -->
+<!-- PRODUCT GRID (AFFILIATE IMAGES) -->
 <section class="featured-products">
 
-  <div class="product-card">
-    <img src="product1.jpg" alt="Product">
+  <a href="AFFILIATE_LINK_1" class="product-card" target="_blank" rel="noopener noreferrer">
+    <img src="AFFILIATE_LINK_1" alt="Product Image">
     <div class="product-title">Soft Knit Sweater</div>
     <div class="tags">
       <span class="tag">soft</span>
       <span class="tag">woman</span>
     </div>
     <div class="rating">★★★★☆</div>
-  </div>
+  </a>
 
-  <div class="product-card">
-    <img src="product2.jpg" alt="Product">
+  <a href="AFFILIATE_LINK_2" class="product-card" target="_blank" rel="noopener noreferrer">
+    <img src="AFFILIATE_LINK_2" alt="Product Image">
     <div class="product-title">Gentle Linen Wrap</div>
     <div class="tags">
       <span class="tag">lightweight</span>
       <span class="tag">neutral</span>
     </div>
     <div class="rating">★★★★★</div>
-  </div>
+  </a>
 
-  <div class="product-card">
-    <img src="product3.jpg" alt="Product">
+  <a href="AFFILIATE_LINK_3" class="product-card" target="_blank" rel="noopener noreferrer">
+    <img src="AFFILIATE_LINK_3" alt="Product Image">
     <div class="product-title">Adaptive Soft Tee</div>
     <div class="tags">
       <span class="tag">adaptive</span>
       <span class="tag">soft</span>
     </div>
     <div class="rating">★★★★☆</div>
-  </div>
+  </a>
 
 </section>
 
