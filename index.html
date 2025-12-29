@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Gentle Standard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-main: #f4ecdf;
+            --bg-card: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --accent-1: #c9a9f3;
+            --accent-2: #f5b8b0;
+            --accent-3: #a8d8c9;
+            --accent-4: #f8d37c;
+            --border-soft: #e3d5c2;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Atkinson Hyperlegible', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            line-height: 1.6;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        body::before,
+        body::after {
+            content: "";
+            position: fixed;
+            z-index: -1;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.45;
+        }
+
+        body::before {
+            width: 380px;
+            height: 380px;
+            top: -80px;
+            left: -40px;
+            background: radial-gradient(circle at 30% 30%, var(--accent-1), transparent 60%);
+        }
+
+        body::after {
+            width: 420px;
+            height: 420px;
+            bottom: -120px;
+            right: -20px;
+            background:
+                radial-gradient(circle at 30% 70%, var(--accent-2), transparent 60%),
+                radial-gradient(circle at 70% 30%, var(--accent-3), transparent 60%);
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            padding: 22px 16px 18px;
+            border-bottom: 1px solid var(--border-soft);
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0 0 8px 0;
+            font-size: 2rem;
+            letter-spacing: 0.04em;
+        }
+
+        header p {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        .page-wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 16px 16px 32px;
+        }
+
+        .banner-container {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 18px;
+            padding: 12px 10px 12px 18px;
+            border: 1px solid var(--border-soft);
+            margin-bottom: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .banner-title {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 0 0 6px 0;
+        }
+
+        .banner-strip {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            animation: banner-scroll 28s linear infinite;
+            will-change: transform;
+        }
+
+        .banner-item {
+            min-width: 150px;
+            max-width: 150px;
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 6px;
+            border: 1px solid #e7dfd1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            text-align: center;
+        }
+
+        .banner-item img {
+            width: 100%;
+            height: 110px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .banner-item-title {
+            font-size: 0.8rem;
+            margin-top: 4px;
+            color: var(--text-main);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @keyframes banner-scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .banner-empty {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            padding: 4px 0 2px;
+        }
+
+        .filters-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            border-radius: 18px;
+            padding: 12px 14px 10px;
+            border: 1px solid var(--border-soft);
+            margin-bottom: 20px;
+        }
+
+        .filters-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .filter-group {
+            flex: 1 1 220px;
+            min-width: 200px;
+        }
+
+        .filter-group-title {
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--text-main);
+        }
+
+        .filter-group-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin: 0 0 6px;
+        }
+
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 14px;
+        }
+
+        .filter-option {
+            font-size: 0.85rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .filter-option input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+        }
+
+        .grid-header {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin: 4px 2px 8px;
+        }
+
+        .clothing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 18px;
+        }
+
+        .clothing-card {
+            background: rgba(255, 255, 255, 0.96);
+            border-radius: 18px;
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .clothing-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+        }
+
+        .clothing-image-wrapper {
+            width: 100%;
+            height: 210px;
+            background: #f4efe5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .clothing-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .clothing-content {
+            padding: 10px 12px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .clothing-title {
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        .clothing-meta {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .clothing-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
+
+        .tag-pill {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 999px;
+            background: #f4ede1;
+            color: #675646;
+        }
+
+        .btn-link {
+            margin-top: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6px 10px;
+            border-radius: 999px;
+            border: none;
+            cursor: pointer;
+            font-size: 0.82rem;
+            background: linear-gradient(135deg, var(--accent-3), var(--accent-1));
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            opacity: 0.92;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Gentle Standard</h1>
+    <p>A calm, sensory-considerate way to discover clothing that feels right for you.</p>
+</header>
+
+<div class="page-wrapper">
+
+    <!-- Top Banner (highlighted items) -->
+    <section class="banner-container">
+        <p class="banner-title">Currently highlighted for you</p>
+        <div id="bannerStrip" class="banner-strip"></div>
+        <div id="bannerEmpty" class="banner-empty" style="display: none;">
+            Items you choose will appear here when they’re specially highlighted.
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters-panel">
+
+        <div class="filters-row">
+
+            <!-- Texture group -->
+            <div class="filter-group" data-group="texture">
+                <p class="filter-group-title">Texture</p>
+                <p class="filter-group-sub">Choose any textures that feel comfortable. Leave empty to see all.</p>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" value="soft" data-group="texture">
+                        <span>Soft</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="smooth" data-group="texture">
+                        <span>Smooth</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="ribbed" data-group="texture">
+                        <span>Ribbed</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="fuzzy" data-group="texture">
+                        <span>Fuzzy</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Category group -->
+            <div class="filter-group" data-group="category">
+                <p class="filter-group-title">Category</p>
+                <p class="filter-group-sub">Pick what you’re looking for. Leave empty to see all.</p>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" value="tops" data-group="category">
+                        <span>Tops</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="pants" data-group="category">
+                        <span>Pants</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="outerwear" data-group="category">
+                        <span>Outerwear</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="adaptive" data-group="category">
+                        <span>Adaptive wear</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Audience group -->
+            <div class="filter-group" data-group="audience">
+                <p class="filter-group-title">Audience</p>
+                <p class="filter-group-sub">Who is this for? Leave empty to see all.</p>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" value="adult" data-group="audience">
+                        <span>Adult</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="child" data-group="audience">
+                        <span>Child</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="male" data-group="audience">
+                        <span>Male</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="female" data-group="audience">
+                        <span>Female</span>
+                    </label>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tags row -->
+        <div class="filters-row" style="margin-top: 10px;">
+            <div class="filter-group" data-group="tags">
+                <p class="filter-group-title">Tags</p>
+                <p class="filter-group-sub">Extra tags you can use later (Tag 1–Tag 6 for now).</p>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="checkbox" value="tag1" data-group="tags">
+                        <span>Tag 1</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="tag2" data-group="tags">
+                        <span>Tag 2</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="tag3" data-group="tags">
+                        <span>Tag 3</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="tag4" data-group="tags">
+                        <span>Tag 4</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="tag5" data-group="tags">
+                        <span>Tag 5</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="checkbox" value="tag6" data-group="tags">
+                        <span>Tag 6</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <p id="gridHeader" class="grid-header"></p>
+
+    <!-- Clothing grid -->
+    <section id="clothingGrid" class="clothing-grid"></section>
+
+</div>
+<script>
+    // ---- Data structure using Option B (attributes object) ----
+    // image: can be affiliate-feed URL
+    // link: link to clothing item page in GitHub
+    // bannerCode: number (0 or blank means "not highlighted")
+
+    const clothingItems = [
+        {
+            name: "Soft Cream Hoodie",
+            image: "https://via.placeholder.com/600x800?text=Soft+Cream+Hoodie",
+            link: "item-soft-cream-hoodie.html",
+            bannerCode: 15,
+            attributes: {
+                soft: "Yes",
+                smooth: "No",
+                ribbed: "No",
+                fuzzy: "No",
+                tops: "Yes",
+                pants: "No",
+                outerwear: "Yes",
+                adaptive: "No",
+                adult: "Yes",
+                child: "No",
+                male: "Yes",
+                female: "Yes",
+                tag1: "Yes",
+                tag2: "No",
+                tag3: "No",
+                tag4: "No",
+                tag5: "No",
+                tag6: "No"
+            }
+        },
+        {
+            name: "Smooth Blue Lounge Pants",
+            image: "https://via.placeholder.com/600x800?text=Smooth+Blue+Pants",
+            link: "item-smooth-blue-pants.html",
+            bannerCode: 10,
+            attributes: {
+                soft: "Yes",
+                smooth: "Yes",
+                ribbed: "No",
+                fuzzy: "No",
+                tops: "No",
+                pants: "Yes",
+                outerwear: "No",
+                adaptive: "No",
+                adult: "Yes",
+                child: "Yes",
+                male: "Yes",
+                female: "Yes",
+                tag1: "No",
+                tag2: "Yes",
+                tag3: "No",
+                tag4: "No",
+                tag5: "No",
+                tag6: "No"
+            }
+        },
+        {
+            name: "Ribbed Sage Long-Sleeve Tee",
+            image: "https://via.placeholder.com/600x800?text=Ribbed+Sage+Tee",
+            link: "item-ribbed-sage-tee.html",
+            bannerCode: 0,
+            attributes: {
+                soft: "No",
+                smooth: "No",
+                ribbed: "Yes",
+                fuzzy: "No",
+                tops: "Yes",
+                pants: "No",
+                outerwear: "No",
+                adaptive: "No",
+                adult: "Yes",
+                child: "No",
+                male: "Yes",
+                female: "Yes",
+                tag1: "No",
+                tag2: "No",
+                tag3: "Yes",
+                tag4: "No",
+                tag5: "No",
+                tag6: "No"
+            }
+        },
+        {
+            name: "Fuzzy Cloud Cardigan",
+            image: "https://via.placeholder.com/600x800?text=Fuzzy+Cloud+Cardigan",
+            link: "item-fuzzy-cloud-cardigan.html",
+            bannerCode: 15,
+            attributes: {
+                soft: "Yes",
+                smooth: "No",
+                ribbed: "No",
+                fuzzy: "Yes",
+                tops: "Yes",
+                pants: "No",
+                outerwear: "Yes",
+                adaptive: "No",
+                adult: "Yes",
+                child: "No",
+                male: "No",
+                female: "Yes",
+                tag1: "No",
+                tag2: "No",
+                tag3: "No",
+                tag4: "Yes",
+                tag5: "No",
+                tag6: "No"
+            }
+        },
+        {
+            name: "Adaptive Seamless Undershirt",
+            image: "https://via.placeholder.com/600x800?text=Adaptive+Seamless+Undershirt",
+            link: "item-adaptive-seamless-undershirt.html",
+            bannerCode: 5,
+            attributes: {
+                soft: "Yes",
+                smooth: "Yes",
+                ribbed: "No",
+                fuzzy: "No",
+                tops: "Yes",
+                pants: "No",
+                outerwear: "No",
+                adaptive: "Yes",
+                adult: "Yes",
+                child: "Yes",
+                male: "Yes",
+                female: "Yes",
+                tag1: "No",
+                tag2: "No",
+                tag3: "No",
+                tag4: "No",
+                tag5: "Yes",
+                tag6: "No"
+            }
+        }
+    ];
+
+    const clothingGrid = document.getElementById("clothingGrid");
+    const gridHeader = document.getElementById("gridHeader");
+    const bannerStrip = document.getElementById("bannerStrip");
+    const bannerEmpty = document.getElementById("bannerEmpty");
+
+    // Collect selected filters by group
+    function getSelectedFilters() {
+        const groups = ["texture", "category", "audience", "tags"];
+        const selected = {
+            texture: [],
+            category: [],
+            audience: [],
+            tags: []
+        };
+
+        groups.forEach(group => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][data-group="' + group + '"]');
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selected[group].push(cb.value);
+                }
+            });
+        });
+
+        return selected;
+    }
+
+    // Map checkbox value to attribute key
+    function getAttributeKey(group, value) {
+        return value;
+    }
+
+    // Determine if an item passes the filters
+    function itemPassesFilters(item, filters) {
+        const groups = ["texture", "category", "audience", "tags"];
+
+        for (let group of groups) {
+            const selectedValues = filters[group];
+
+            if (selectedValues.length === 0) continue;
+
+            let groupPass = false;
+            for (let val of selectedValues) {
+                const key = getAttributeKey(group, val);
+                if (item.attributes[key] === "Yes") {
+                    groupPass = true;
+                    break;
+                }
+            }
+
+            if (!groupPass) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // Render clothing grid
+    function renderGridAndBanner() {
+        const filters = getSelectedFilters();
+        const visibleItems = clothingItems.filter(item => itemPassesFilters(item, filters));
+
+        gridHeader.textContent = visibleItems.length === 1
+            ? "Showing 1 item"
+            : "Showing " + visibleItems.length + " items";
+
+        clothingGrid.innerHTML = "";
+        visibleItems.forEach(item => {
+            const card = document.createElement("article");
+            card.className = "clothing-card";
+
+            const tagPills = [];
+            if (item.attributes.soft === "Yes") tagPills.push("Soft");
+            if (item.attributes.smooth === "Yes") tagPills.push("Smooth");
+            if (item.attributes.ribbed === "Yes") tagPills.push("Ribbed");
+            if (item.attributes.fuzzy === "Yes") tagPills.push("Fuzzy");
+            if (item.attributes.tag1 === "Yes") tagPills.push("Tag 1");
+            if (item.attributes.tag2 === "Yes") tagPills.push("Tag 2");
+            if (item.attributes.tag3 === "Yes") tagPills.push("Tag 3");
+            if (item.attributes.tag4 === "Yes") tagPills.push("Tag 4");
+            if (item.attributes.tag5 === "Yes") tagPills.push("Tag 5");
+            if (item.attributes.tag6 === "Yes") tagPills.push("Tag 6");
+
+            const categories = [];
+            if (item.attributes.tops === "Yes") categories.push("Top");
+            if (item.attributes.pants === "Yes") categories.push("Pants");
+            if (item.attributes.outerwear === "Yes") categories.push("Outerwear");
+            if (item.attributes.adaptive === "Yes") categories.push("Adaptive");
+
+            const audiences = [];
+            if (item.attributes.adult === "Yes") audiences.push("Adult");
+            if (item.attributes.child === "Yes") audiences.push("Child");
+            if (item.attributes.male === "Yes") audiences.push("Male");
+            if (item.attributes.female === "Yes") audiences.push("Female");
+
+            card.innerHTML = `
+                <div class="clothing-image-wrapper">
+                    <img src="${item.image}" alt="${item.name}">
+                </div>
+                <div class="clothing-content">
+                    <h3 class="clothing-title">${item.name}</h3>
+                    <p class="clothing-meta">
+                        ${categories.join(" · ")}${categories.length && audiences.length ? " · " : ""}${audiences.join(" · ")}
+                    </p>
+                    <div class="clothing-tags">
+                        ${tagPills.map(t => `<span class="tag-pill">${t}</span>`).join("")}
+                    </div>
+                    <a href="${item.link}" class="btn-link">View details</a>
+                </div>
+            `;
+
+            clothingGrid.appendChild(card);
+        });
+
+        renderBanner(visibleItems);
+    }
+
+    // Shuffle array
+    function shuffleArray(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+    }
+
+    // Render banner
+    function renderBanner(visibleItems) {
+        const bannerCandidates = visibleItems.filter(
+            item => typeof item.bannerCode === "number" && item.bannerCode > 0
+        );
+
+        if (bannerCandidates.length === 0) {
+            bannerStrip.innerHTML = "";
+            bannerStrip.style.display = "none";
+            bannerEmpty.style.display = "block";
+            return;
+        }
+
+        const maxBannerCode = bannerCandidates.reduce(
+            (max, item) => item.bannerCode > max ? item.bannerCode : max,
+            0
+        );
+
+        const topItems = bannerCandidates.filter(item => item.bannerCode === maxBannerCode);
+
+        let itemsToShow;
+        if (topItems.length > 10) {
+            itemsToShow = shuffleArray(topItems).slice(0, 10);
+        } else {
+            itemsToShow = topItems;
+        }
+
+        let displayItems = itemsToShow;
+        if (itemsToShow.length < 5) {
+            displayItems = itemsToShow.concat(itemsToShow);
+        }
+
+        bannerStrip.innerHTML = "";
+        displayItems.forEach(item => {
+            const div = document.createElement("div");
+            div.className = "banner-item";
+            div.innerHTML = `
+                <img src="${item.image}" alt="${item.name}">
+                <div class="banner-item-title">${item.name}</div>
+            `;
+            bannerStrip.appendChild(div);
+        });
+
+        bannerStrip.style.display = "flex";
+        bannerEmpty.style.display = "none";
+    }
+
+    // Attach event listeners
+    function initFilters() {
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][data-group]');
+        checkboxes.forEach(cb => {
+            cb.addEventListener("change", renderGridAndBanner);
+        });
+    }
+
+    // Initial render
+    initFilters();
+    renderGridAndBanner();
+</script>
+
+</body>
+</html>
