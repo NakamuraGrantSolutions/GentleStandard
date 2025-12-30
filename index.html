@@ -120,16 +120,34 @@ header h1 {
   padding: 10px;
   margin-top: 5px;
   z-index: 20;
+  min-width: 150px;
 }
 
 .filter-options label {
-  display: block;
-  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
   cursor: pointer;
 }
 
-.filter-group.open .filter-options {
-  display: block;
+.filter-options input[type="checkbox"] {
+  transform: scale(1.2);
+}
+
+/* CLEAR FILTERS BUTTON */
+.clear-filters {
+  padding: 10px 16px;
+  border-radius: 10px;
+  border: 1px solid #A888A2;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  margin-left: 10px;
+  transition: background 0.3s ease;
+}
+
+.clear-filters:hover {
+  background: rgba(168, 136, 162, 0.2);
 }
 
 /* ----------------------------------------
@@ -197,12 +215,6 @@ header h1 {
 
 .tag:nth-child(even) {
   background-color: #4AA44A;
-}
-
-.rating {
-  margin-top: 10px;
-  color: #4AA44A;
-  font-size: 1.2rem;
 }
 
 /* ----------------------------------------
@@ -274,14 +286,8 @@ footer p {
       </div>
     </div>
 
-    <!-- RATING FILTER -->
-    <div class="filter-group">
-      <button class="filter-toggle">Rating ▾</button>
-      <div class="filter-options" data-filter="rating">
-        <label><input type="checkbox" value="5"> ★★★★★</label>
-        <label><input type="checkbox" value="4"> ★★★★☆</label>
-      </div>
-    </div>
+    <!-- CLEAR FILTERS BUTTON -->
+    <button id="clearFilters" class="clear-filters">Clear Filters</button>
 
   </div>
 </section>
@@ -291,7 +297,7 @@ footer p {
 
   <a href="AFFILIATE_LINK_1"
      class="product-card"
-     data-tags="soft woman knit 4"
+     data-tags="soft woman knit"
      target="_blank">
 
     <img src="DIRECT_IMAGE_URL_1" alt="Product Image">
@@ -302,12 +308,11 @@ footer p {
       <span class="tag">woman</span>
     </div>
 
-    <div class="rating">★★★★☆</div>
   </a>
 
   <a href="AFFILIATE_LINK_2"
      class="product-card"
-     data-tags="lightweight neutral linen 5"
+     data-tags="lightweight neutral linen"
      target="_blank">
 
     <img src="DIRECT_IMAGE_URL_2" alt="Product Image">
@@ -318,12 +323,11 @@ footer p {
       <span class="tag">neutral</span>
     </div>
 
-    <div class="rating">★★★★★</div>
   </a>
 
   <a href="AFFILIATE_LINK_3"
      class="product-card"
-     data-tags="adaptive soft cotton 4"
+     data-tags="adaptive soft cotton"
      target="_blank">
 
     <img src="DIRECT_IMAGE_URL_3" alt="Product Image">
@@ -334,7 +338,6 @@ footer p {
       <span class="tag">soft</span>
     </div>
 
-    <div class="rating">★★★★☆</div>
   </a>
 
 </section>
@@ -354,6 +357,7 @@ footer p {
 <script>
   const filterGroups = document.querySelectorAll('.filter-group');
   const productCards = document.querySelectorAll('.product-card');
+  const clearFiltersBtn = document.getElementById('clearFilters');
 
   // Toggle dropdowns
   filterGroups.forEach(group => {
@@ -363,9 +367,8 @@ footer p {
     });
   });
 
-  // Apply filters
+  // Apply filters when checkboxes change
   const checkboxes = document.querySelectorAll('.filter-options input');
-
   checkboxes.forEach(box => {
     box.addEventListener('change', applyFilters);
   });
@@ -400,6 +403,18 @@ footer p {
       card.style.display = matchesAll ? "block" : "none";
     });
   }
+
+  // CLEAR FILTERS BUTTON
+  clearFiltersBtn.addEventListener('click', () => {
+    // Uncheck all boxes
+    checkboxes.forEach(box => box.checked = false);
+
+    // Close dropdowns
+    filterGroups.forEach(group => group.classList.remove('open'));
+
+    // Show all products
+    productCards.forEach(card => card.style.display = "block");
+  });
 
   // Scroll-triggered animations
   function revealOnScroll() {
