@@ -43,19 +43,56 @@ body {
 }
 
 /* ----------------------------------------
+   TOP BANNER (AFFILIATE + INTRO)
+----------------------------------------- */
+
+.top-banner {
+  width: 100%;
+  padding: 16px 10%;
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(168, 136, 162, 0.25);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #444;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.top-banner p {
+  margin: 0;
+}
+
+.top-banner strong {
+  color: #A888A2;
+  font-weight: 600;
+}
+
+.top-banner em {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* ----------------------------------------
    HEADER
 ----------------------------------------- */
 
 header {
-  padding: 60px 8%;
+  padding: 40px 8% 20px;
   max-width: 900px;
   margin: 0 auto;
   text-align: left;
+  animation: fadeInUp 0.8s ease forwards;
+  opacity: 0;
 }
 
 .site-logo {
   width: 90px;
   margin-bottom: 20px;
+  border-radius: 16px;
 }
 
 header h1 {
@@ -76,9 +113,11 @@ header h1 {
 ----------------------------------------- */
 
 .search-section {
-  padding: 20px 8%;
+  padding: 20px 8% 10px;
   max-width: 900px;
   margin: 0 auto;
+  animation: fadeInUp 0.8s ease 0.1s forwards;
+  opacity: 0;
 }
 
 .search-section input[type="text"] {
@@ -87,40 +126,80 @@ header h1 {
   border-radius: 10px;
   border: 1px solid #CCD6E5;
   font-size: 1rem;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(4px);
+  transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+}
+
+.search-section input[type="text"]:focus {
+  outline: none;
+  border-color: #A888A2;
+  box-shadow: 0 0 0 3px rgba(168, 136, 162, 0.25);
+  transform: translateY(-1px);
 }
 
 /* FILTER DROPDOWNS */
 .filters {
   margin-top: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
 }
 
 .filter-group {
   position: relative;
   display: inline-block;
-  margin-right: 15px;
 }
 
 .filter-toggle {
   padding: 10px 14px;
   border-radius: 10px;
   border: 1px solid #CCD6E5;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.filter-toggle:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
+}
+
+.filter-toggle span.chevron {
+  transition: transform 0.2s ease;
+}
+
+.filter-group.open .filter-toggle span.chevron {
+  transform: rotate(180deg);
 }
 
 .filter-options {
   display: none;
   position: absolute;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(6px);
   border: 1px solid #CCD6E5;
   border-radius: 10px;
   padding: 10px;
   margin-top: 5px;
   z-index: 20;
-  min-width: 150px;
+  min-width: 170px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.08);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.filter-group.open .filter-options {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .filter-options label {
@@ -129,10 +208,11 @@ header h1 {
   gap: 8px;
   padding: 4px 0;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .filter-options input[type="checkbox"] {
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
 /* CLEAR FILTERS BUTTON */
@@ -140,14 +220,17 @@ header h1 {
   padding: 10px 16px;
   border-radius: 10px;
   border: 1px solid #A888A2;
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   cursor: pointer;
-  margin-left: 10px;
-  transition: background 0.3s ease;
+  margin-left: 4px;
+  font-size: 0.9rem;
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
 }
 
 .clear-filters:hover {
-  background: rgba(168, 136, 162, 0.2);
+  background: rgba(168, 136, 162, 0.12);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.06);
 }
 
 /* ----------------------------------------
@@ -155,27 +238,32 @@ header h1 {
 ----------------------------------------- */
 
 .featured-products {
-  padding: 40px 8%;
+  padding: 30px 8% 60px;
   display: grid;
-  grid-template-columns: repeat(3, minmax(260px, 1fr));
-  gap: 40px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 30px;
 }
 
 .product-card {
   display: block;
   text-decoration: none;
   color: inherit;
-
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(8px);
   border-radius: 16px;
-  padding: 20px;
+  padding: 18px;
   border: 1px solid rgba(168, 136, 162, 0.25);
   text-align: center;
-
   opacity: 0;
   transform: translateY(30px);
-  transition: all 0.8s ease;
+  transition:
+    transform 0.35s ease,
+    box-shadow 0.35s ease,
+    opacity 0.6s ease,
+    border-color 0.25s ease,
+    background 0.25s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .product-card.visible {
@@ -184,23 +272,50 @@ header h1 {
 }
 
 .product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 24px rgba(168, 136, 162, 0.18);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 16px 32px rgba(168, 136, 162, 0.25);
+  border-color: #A888A2;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.product-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(216,132,160,0.18), transparent 55%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.product-card:hover::after {
+  opacity: 1;
 }
 
 .product-card img {
   width: 100%;
   border-radius: 12px;
+  transition: transform 0.35s ease;
+}
+
+.product-card:hover img {
+  transform: scale(1.03);
 }
 
 .product-title {
   margin-top: 12px;
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 600;
 }
 
+.product-meta {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 4px;
+}
+
 .tags {
-  margin: 10px 0;
+  margin: 10px 0 4px;
 }
 
 .tag {
@@ -209,7 +324,7 @@ header h1 {
   color: white;
   padding: 5px 12px;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   margin: 3px;
 }
 
@@ -217,12 +332,31 @@ header h1 {
   background-color: #4AA44A;
 }
 
+/* Micro interaction: subtle "View on Amazon" pill */
+.product-cta {
+  margin-top: 10px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(168, 136, 162, 0.08);
+  color: #7A5C86;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.product-card:hover .product-cta {
+  background: rgba(168, 136, 162, 0.18);
+  transform: translateY(-1px);
+}
+
 /* ----------------------------------------
    FOOTER
 ----------------------------------------- */
 
 footer {
-  margin-top: 80px;
+  margin-top: 20px;
   padding: 40px 8%;
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
@@ -242,10 +376,57 @@ footer p {
   color: #555;
 }
 
+/* ----------------------------------------
+   ANIMATIONS
+----------------------------------------- */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ----------------------------------------
+   RESPONSIVE
+----------------------------------------- */
+
+@media (max-width: 768px) {
+  header {
+    text-align: center;
+  }
+
+  .top-banner {
+    padding: 12px 6%;
+  }
+
+  .filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .filter-group,
+  .clear-filters {
+    width: auto;
+  }
+}
 </style>
 </head>
 
 <body>
+
+<!-- TOP BANNER -->
+<div class="top-banner">
+  <p>
+    <strong>Welcome to The Gentle Standard.</strong> As autistic and ADHD people, we wanted to create a space where people could find products that bring a better quality of life. Through the use of our Amazon affiliate links — where we make a small commission at no cost to you* — we’re able to keep curating gentle, accessible, sensory‑kind things.
+    <br><br>
+    <em>*We are associated with the Amazon Affiliate Program and earn a small commission whenever an item is bought using one of our links. There is no extra cost to you.</em>
+  </p>
+</div>
 
 <!-- FLOATING LEAVES -->
 <img src="leaf.png" class="leaf" style="left: 10%; animation-delay: 0s;">
@@ -261,85 +442,39 @@ footer p {
 
 <!-- SEARCH + FILTERS -->
 <section class="search-section">
-  <input type="text" id="searchInput" placeholder="Search products...">
+  <input type="text" id="searchInput" placeholder="Search products by name...">
 
   <div class="filters">
-
     <!-- CATEGORY FILTER -->
-    <div class="filter-group">
-      <button class="filter-toggle">Category ▾</button>
+    <div class="filter-group" data-filter-type="category">
+      <button class="filter-toggle">
+        <span>Category</span>
+        <span class="chevron">▾</span>
+      </button>
       <div class="filter-options" data-filter="category">
-        <label><input type="checkbox" value="soft"> Soft</label>
-        <label><input type="checkbox" value="woman"> Woman</label>
-        <label><input type="checkbox" value="adaptive"> Adaptive</label>
-        <label><input type="checkbox" value="neutral"> Neutral</label>
+        <!-- Filled dynamically -->
       </div>
     </div>
 
     <!-- MATERIAL FILTER -->
-    <div class="filter-group">
-      <button class="filter-toggle">Material ▾</button>
+    <div class="filter-group" data-filter-type="material">
+      <button class="filter-toggle">
+        <span>Material</span>
+        <span class="chevron">▾</span>
+      </button>
       <div class="filter-options" data-filter="material">
-        <label><input type="checkbox" value="cotton"> Cotton</label>
-        <label><input type="checkbox" value="linen"> Linen</label>
-        <label><input type="checkbox" value="knit"> Knit</label>
+        <!-- Filled dynamically -->
       </div>
     </div>
 
     <!-- CLEAR FILTERS BUTTON -->
-    <button id="clearFilters" class="clear-filters">Clear Filters</button>
-
+    <button id="clearFilters" class="clear-filters">Clear filters</button>
   </div>
 </section>
 
-<!-- PRODUCT GRID (AFFILIATE IMAGES) -->
-<section class="featured-products">
-
-  <a href="https://amzn.to/4aD5U5b"
-     class="product-card"
-     data-tags="soft woman knit"
-     target="_blank">
-
-    <img src="DIRECT_IMAGE_URL_1" alt="Product Image">
-    <div class="product-title">Soft Knit Sweater</div>
-
-    <div class="tags">
-      <span class="tag">soft</span>
-      <span class="tag">woman</span>
-    </div>
-
-  </a>
-
-  <a href="AFFILIATE_LINK_2"
-     class="product-card"
-     data-tags="lightweight neutral linen"
-     target="_blank">
-
-    <img src="DIRECT_IMAGE_URL_2" alt="Product Image">
-    <div class="product-title">Gentle Linen Wrap</div>
-
-    <div class="tags">
-      <span class="tag">lightweight</span>
-      <span class="tag">neutral</span>
-    </div>
-
-  </a>
-
-  <a href="AFFILIATE_LINK_3"
-     class="product-card"
-     data-tags="adaptive soft cotton"
-     target="_blank">
-
-    <img src="DIRECT_IMAGE_URL_3" alt="Product Image">
-    <div class="product-title">Adaptive Soft Tee</div>
-
-    <div class="tags">
-      <span class="tag">adaptive</span>
-      <span class="tag">soft</span>
-    </div>
-
-  </a>
-
+<!-- PRODUCT GRID (DYNAMIC) -->
+<section class="featured-products" id="productGrid">
+  <!-- Cards injected via JS -->
 </section>
 
 <!-- FOOTER -->
@@ -348,79 +483,217 @@ footer p {
   <p>
     At The Gentle Standard, we believe in softness as a form of dignity.  
     We design with accessibility, comfort, and emotional ease at the center —  
-    creating clothing that honors the body, the senses, and the lived experience  
-    of every person who wears it.
+    creating clothing and objects that honor the body, the senses, and the lived experience  
+    of every person who uses them.
   </p>
 </footer>
 
-<!-- FILTER + SCROLL SCRIPT -->
+<!-- STORE SCRIPT -->
 <script>
+  // -----------------------------
+  // PRODUCT DATA (EDIT THIS PART)
+  // -----------------------------
+  const products = [
+    {
+      title: "Soft Knit Sweater",
+      link: "https://amzn.to/4aD5U5b",
+      image: "DIRECT_IMAGE_URL_1",
+      category: "soft",
+      material: "knit",
+      tags: ["soft", "woman", "knit"],
+      note: "Cozy, low‑itch knit for gentle layering."
+    },
+    {
+      title: "Gentle Linen Wrap",
+      link: "AFFILIATE_LINK_2",
+      image: "DIRECT_IMAGE_URL_2",
+      category: "neutral",
+      material: "linen",
+      tags: ["lightweight", "neutral", "linen"],
+      note: "Lightweight and breathable for sensory‑friendly warmth."
+    },
+    {
+      title: "Adaptive Soft Tee",
+      link: "AFFILIATE_LINK_3",
+      image: "DIRECT_IMAGE_URL_3",
+      category: "adaptive",
+      material: "cotton",
+      tags: ["adaptive", "soft", "cotton"],
+      note: "Tagless, soft seams, easy to put on and take off."
+    },
+    // Add more products here:
+    // {
+    //   title: "Name",
+    //   link: "AFFILIATE_LINK",
+    //   image: "IMAGE_URL",
+    //   category: "soft" | "adaptive" | "neutral" | "woman" | etc,
+    //   material: "cotton" | "linen" | "knit" | etc,
+    //   tags: ["soft", "neutral"],
+    //   note: "Short sensory/comfort note."
+    // }
+  ];
+
+  const productGrid = document.getElementById('productGrid');
+
+  // -----------------------------
+  // RENDER PRODUCTS
+  // -----------------------------
+  function renderProducts(list) {
+    productGrid.innerHTML = "";
+
+    list.forEach((product, index) => {
+      const card = document.createElement('a');
+      card.href = product.link;
+      card.target = "_blank";
+      card.className = "product-card";
+      card.dataset.category = product.category;
+      card.dataset.material = product.material;
+      card.dataset.tags = product.tags.join(" ").toLowerCase();
+
+      card.innerHTML = `
+        <img src="${product.image}" alt="${product.title}">
+        <div class="product-title">${product.title}</div>
+        <div class="product-meta">
+          ${product.category ? product.category.charAt(0).toUpperCase() + product.category.slice(1) : ""}${product.material ? " • " + product.material : ""}
+        </div>
+        <div class="tags">
+          ${product.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+        </div>
+        ${product.note ? `<div class="product-meta">${product.note}</div>` : ""}
+        <div class="product-cta">
+          <span>View on Amazon</span>
+          <span>↗</span>
+        </div>
+      `;
+
+      // Staggered reveal
+      setTimeout(() => {
+        card.classList.add('visible');
+      }, 80 * index);
+
+      productGrid.appendChild(card);
+    });
+  }
+
+  // Initial render
+  renderProducts(products);
+
+  // -----------------------------
+  // BUILD FILTER OPTIONS FROM DATA
+  // -----------------------------
+  function uniqueValues(key) {
+    return [...new Set(products.map(p => p[key]).filter(Boolean))];
+  }
+
+  function buildFilterOptions() {
+    const categoryOptions = document.querySelector('.filter-options[data-filter="category"]');
+    const materialOptions = document.querySelector('.filter-options[data-filter="material"]');
+
+    const categories = uniqueValues('category');
+    const materials = uniqueValues('material');
+
+    categoryOptions.innerHTML = categories.map(c => `
+      <label>
+        <input type="checkbox" value="${c}">
+        <span>${c.charAt(0).toUpperCase() + c.slice(1)}</span>
+      </label>
+    `).join("");
+
+    materialOptions.innerHTML = materials.map(m => `
+      <label>
+        <input type="checkbox" value="${m}">
+        <span>${m.charAt(0).toUpperCase() + m.slice(1)}</span>
+      </label>
+    `).join("");
+  }
+
+  buildFilterOptions();
+
+  // -----------------------------
+  // FILTER LOGIC
+  // -----------------------------
   const filterGroups = document.querySelectorAll('.filter-group');
-  const productCards = document.querySelectorAll('.product-card');
   const clearFiltersBtn = document.getElementById('clearFilters');
+  const searchInput = document.getElementById('searchInput');
 
   // Toggle dropdowns
   filterGroups.forEach(group => {
     const toggle = group.querySelector('.filter-toggle');
     toggle.addEventListener('click', () => {
-      group.classList.toggle('open');
+      const isOpen = group.classList.contains('open');
+      document.querySelectorAll('.filter-group').forEach(g => g.classList.remove('open'));
+      if (!isOpen) group.classList.add('open');
     });
   });
 
-  // Apply filters when checkboxes change
-  const checkboxes = document.querySelectorAll('.filter-options input');
-  checkboxes.forEach(box => {
-    box.addEventListener('change', applyFilters);
-  });
-
-  function applyFilters() {
-    const activeFilters = {};
-
-    // Collect selected filters
-    document.querySelectorAll('.filter-options').forEach(optionGroup => {
-      const filterType = optionGroup.dataset.filter;
-      const selected = [...optionGroup.querySelectorAll('input:checked')].map(i => i.value);
-
-      if (selected.length > 0) {
-        activeFilters[filterType] = selected;
-      }
-    });
-
-    // If no filters selected → show all
-    if (Object.keys(activeFilters).length === 0) {
-      productCards.forEach(card => card.style.display = "block");
-      return;
+  // Close dropdowns on outside click
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.filter-group')) {
+      filterGroups.forEach(g => g.classList.remove('open'));
     }
+  });
 
-    // Filter products
-    productCards.forEach(card => {
-      const tags = card.dataset.tags.split(" ");
+  function getActiveFilters() {
+    const active = {
+      category: [],
+      material: []
+    };
 
-      const matchesAll = Object.values(activeFilters).every(filterList =>
-        filterList.some(f => tags.includes(f))
-      );
+    document.querySelectorAll('.filter-options[data-filter="category"] input:checked')
+      .forEach(i => active.category.push(i.value));
 
-      card.style.display = matchesAll ? "block" : "none";
-    });
+    document.querySelectorAll('.filter-options[data-filter="material"] input:checked')
+      .forEach(i => active.material.push(i.value));
+
+    return active;
   }
+
+  function applyFiltersAndSearch() {
+    const query = searchInput.value.trim().toLowerCase();
+    const active = getActiveFilters();
+
+    const filtered = products.filter(p => {
+      // Search by title
+      const matchesSearch = p.title.toLowerCase().includes(query);
+
+      // Category filter
+      const matchesCategory = active.category.length === 0 || active.category.includes(p.category);
+
+      // Material filter
+      const matchesMaterial = active.material.length === 0 || active.material.includes(p.material);
+
+      return matchesSearch && matchesCategory && matchesMaterial;
+    });
+
+    renderProducts(filtered);
+  }
+
+  // Listen to checkbox changes
+  document.addEventListener('change', (e) => {
+    if (e.target.closest('.filter-options')) {
+      applyFiltersAndSearch();
+    }
+  });
+
+  // Search input
+  searchInput.addEventListener('input', () => {
+    applyFiltersAndSearch();
+  });
 
   // CLEAR FILTERS BUTTON
   clearFiltersBtn.addEventListener('click', () => {
-    // Uncheck all boxes
-    checkboxes.forEach(box => box.checked = false);
-
-    // Close dropdowns
+    document.querySelectorAll('.filter-options input[type="checkbox"]').forEach(box => box.checked = false);
     filterGroups.forEach(group => group.classList.remove('open'));
-
-    // Show all products
-    productCards.forEach(card => card.style.display = "block");
+    searchInput.value = "";
+    renderProducts(products);
   });
 
-  // Scroll-triggered animations
+  // -----------------------------
+  // SCROLL-TRIGGERED ANIMATIONS
+  // -----------------------------
   function revealOnScroll() {
     const trigger = window.innerHeight * 0.85;
-
-    productCards.forEach(card => {
+    document.querySelectorAll('.product-card').forEach(card => {
       const top = card.getBoundingClientRect().top;
       if (top < trigger) {
         card.classList.add('visible');
@@ -434,4 +707,3 @@ footer p {
 
 </body>
 </html>
-
